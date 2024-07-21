@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import StakingOverview from "./components/StakingOverview";
+import StakeUnstake from "./components/StakeUnstake";
+import RewardsTracker from "./components/RewardsTracker";
 
 function App() {
+
+  const [walletAddres, setWalletAddress] = useState('Enter Wallet Address:');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Solana Staking Dashboard</h1>
+      <input
+        type="text"
+        value={walletAddres}
+        onChange={(e) => setWalletAddress(e.target.value)}
+        placeholder="Enter Wallet Address"
+      />
+      <StakingOverview walletAddress={walletAddres} />
+      <StakeUnstake />
+      <RewardsTracker walletAddress={walletAddres} />
     </div>
   );
+
 }
 
 export default App;
+
+
+
+
+
+
