@@ -14,7 +14,7 @@ const StakingOverview = ({ walletAddress }) => {
                 setBalance(balance);
                 setError(null);
             } catch (error) {
-                setError(err.message);
+                setError(error.message);
             }
             
         };
