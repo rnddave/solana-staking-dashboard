@@ -3,7 +3,7 @@ import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import bs58 from 'bs58';
 
 // getting 403 access errors so I will need to change the RPC endpoint. 
-const RPC_ENDPOINT = 'https://api.testnet.solana.com'
+const RPC_ENDPOINT = process.env.REACT_APP_RPC_ENDPOINT;
 
 const connection = new Connection(RPC_ENDPOINT);
 
