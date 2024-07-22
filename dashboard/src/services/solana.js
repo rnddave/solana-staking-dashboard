@@ -2,7 +2,10 @@ import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 // I was getting an error when page loads as Wallet Address did not contain a bs58 address
 import bs58 from 'bs58';
 
-const connection = new Connection(clusterApiUrl('mainnet-beta'));
+// getting 403 access errors so I will need to change the RPC endpoint. 
+const RPC_ENDPOINT = 'https://api.mainnet-beta.solana.com'
+
+const connection = new Connection(RPC_ENDPOINT);
 
 export const getBalance = async (walletAddress) => {
 
