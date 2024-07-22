@@ -1,70 +1,201 @@
-# Getting Started with Create React App
+# Solana Staking Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+The Solana Staking Dashboard is a web application built with React that allows users to view their SOL balance, manage staking, and track staking rewards on the Solana blockchain. This project uses the Solana Web3.js library to interact with the Solana blockchain.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Staking Overview:** View SOL balance and staking details of a Solana wallet.
+- **Stake/Unstake:** Basic functionality to stake and unstake SOL (implementation required).
+- **Rewards Tracker:** Track staking rewards (implementation required).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Project Structure
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```plaintext
+src/
+  components/
+    StakingOverview.js
+    StakeUnstake.js
+    RewardsTracker.js
+  services/
+    solana.js
+  App.js
+  index.js
+```
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository:
 
-### `npm run build`
+   ```bash
+   git clone https://github.com/yourusername/solana-staking-dashboard.git
+   cd solana-staking-dashboard
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Install the dependencies:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   npm install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Start the development server:
 
-### `npm run eject`
+   ```bash
+   npm start
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Usage
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Open your browser and navigate to `http://localhost:3000`.
+2. Enter a valid Solana wallet address to view the balance and staking information.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Components
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### StakingOverview
 
-## Learn More
+Displays the SOL balance and staking overview for a given wallet address.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```javascript
+// src/components/StakingOverview.js
+import React, { useEffect, useState } from 'react';
+import { getBalance } from '../services/solana';
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+const StakingOverview = ({ walletAddress }) => {
+  const [balance, setBalance] = useState(0);
+  const [error, setError] = useState(null);
 
-### Code Splitting
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const balance = await getBalance(walletAddress);
+        setBalance(balance);
+        setError(null);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    if (walletAddress) {
+      fetchBalance();
+    }
+  }, [walletAddress]);
 
-### Analyzing the Bundle Size
+  return (
+    <div>
+      <h2>Staking Overview</h2>
+      <p>Wallet Address: {walletAddress}</p>
+      {error ? (
+        <p style={{ color: 'red' }}>Error: {error}</p>
+      ) : (
+        <p>Balance: {balance} SOL</p>
+      )}
+      {/* Additional staking overview data */}
+    </div>
+  );
+};
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+export default StakingOverview;
+```
 
-### Making a Progressive Web App
+### StakeUnstake
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Provides basic UI for staking and unstaking SOL (functionality implementation required).
 
-### Advanced Configuration
+```javascript
+// src/components/StakeUnstake.js
+import React from 'react';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+const StakeUnstake = () => {
+  const handleStake = () => {
+    // Implementation for staking SOL
+  };
 
-### Deployment
+  const handleUnstake = () => {
+    // Implementation for unstaking SOL
+  };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  return (
+    <div>
+      <h2>Stake / Unstake</h2>
+      <button onClick={handleStake}>Stake</button>
+      <button onClick={handleUnstake}>Unstake</button>
+    </div>
+  );
+};
 
-### `npm run build` fails to minify
+export default StakeUnstake;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### RewardsTracker
+
+Displays the staking rewards for a given wallet address (implementation required).
+
+```javascript
+// src/components/RewardsTracker.js
+import React, { useEffect, useState } from 'react';
+
+const RewardsTracker = ({ walletAddress }) => {
+  const [rewards, setRewards] = useState(0);
+
+  useEffect(() => {
+    const fetchRewards = async () => {
+      // Implementation for fetching staking rewards
+    };
+    fetchRewards();
+  }, [walletAddress]);
+
+  return (
+    <div>
+      <h2>Rewards Tracker</h2>
+      <p>Total Rewards: {rewards} SOL</p>
+    </div>
+  );
+};
+
+export default RewardsTracker;
+```
+
+## Services
+
+### solana.js
+
+Handles interactions with the Solana blockchain using the Solana Web3.js library.
+
+```javascript
+// src/services/solana.js
+import { Connection, PublicKey } from '@solana/web3.js';
+import bs58 from 'bs58';
+
+// Use a Solana Foundation public mainnet-beta RPC endpoint
+const RPC_ENDPOINT = 'https://api.mainnet-beta.solana.com';
+
+const connection = new Connection(RPC_ENDPOINT);
+
+export const getBalance = async (walletAddress) => {
+  try {
+    // Validate base58 string
+    bs58.decode(walletAddress);
+
+    const publicKey = new PublicKey(walletAddress);
+    const balance = await connection.getBalance(publicKey);
+    return balance / 1e9; // Convert lamports to SOL
+  } catch (error) {
+    console.error('Invalid wallet address or RPC error:', error);
+    throw new Error('Invalid wallet address or RPC error');
+  }
+};
+
+export const getStakeAccounts = async (walletAddress) => {
+  // Implementation for fetching stake accounts
+};
+```
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request if you have any improvements or new features to add.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
+
