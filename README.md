@@ -1,3 +1,10 @@
+# 2025-12-05 - ARCHIVED
+
+Archived due to insufficient time to work on this
+
+------
+
+
 # Solana Staking Dashboard
 
 ## Overview
